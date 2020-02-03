@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Students</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{Title}}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Année</th>
+                </tr>
+            </thead>
+            <tr v-for="student in students">
+                <td>{{student.nom}}</td>
+                <td>{{student.prenom}}</td>
+                <td>{{student.annee}}</td>
+            </tr>
+        </table>
+
+        <button onclick="loadStudents()">Charger les étudiants</button>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript" src="javascripts/students.js"></script>

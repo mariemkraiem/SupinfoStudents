@@ -8,10 +8,13 @@ let mongoose =  require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+let apiStudentsRouter = require('./routes/api/students');
+let studentsRouter = require('./routes/students');
 
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(__dirname + '/public'));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -21,8 +24,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/students', apiStudentsRouter);
+app.use('/students', studentsRouter);
 
-mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTechnology: true});
+mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
 let dbConnection = mongoose.connection;
 dbConnection.on('error', () => {
     console.log('Error while connecting to database');

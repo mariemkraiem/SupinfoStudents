@@ -8,16 +8,18 @@ let mongoose =  require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+let apiStudentsRouter = require('./routes/api/students');
 
-/*var shcoolsRouter = require('./routes/schools');
+var schoolsRouter = require('./routes/schools');
 var companysRouter = require('./routes/companys');
 var contractsRouter = require('./routes/contracts');
-var studentSchoolsRouter = require('./routes/studentsSchools');*/
+var studentSchoolsRouter = require('./routes/studentsSchools');
 
 
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(__dirname + '/public'));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -27,10 +29,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-/*app.use('/schools', shcoolsRouter);
-app.use('/companys', companysRouter);
-app.use('/contacts', contractsRouter);
-app.use('/studentsSchools', studentSchoolsRouter);*/
+
+app.use('/api/schools', schoolsRouter);
+app.use('/api/companys', companysRouter);
+app.use('/api/contracts', contractsRouter);
+app.use('/api/studentsSchools', studentSchoolsRouter);
+app.use('/api/students', apiStudentsRouter);
+/**/
 
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
 let dbConnection = mongoose.connection;
@@ -48,7 +53,7 @@ dbConnection.on('open', () => {
     }, {Strict: false});
     mongoose.Collections.students = mongoose.model('students', studentSchema)
 
-    /*let schoolSchema = mongoose.Schema({
+    let schoolSchema = mongoose.Schema({
         name: String,
         country: String
     }, {Strict: false});
@@ -60,14 +65,14 @@ dbConnection.on('open', () => {
     }, {Strict: false});
     mongoose.Collections.companys = mongoose.model('companys', companySchema)
 
-    let contactSchema = mongoose.Schema({
+    let contractSchema = mongoose.Schema({
         idStudent : Int8Array,
         idCompany : Int8Array,
         type: String,
         startDate : Date,
         endDate : Date
     }, {Strict: false});
-    mongoose.Collections.contracts = mongoose.model('contacts', contactSchema)
+    mongoose.Collections.contracts = mongoose.model('contacts', contractSchema)
 
     let studentSchoolSchema = mongoose.Schema({
         idStudent : Int8Array,
@@ -75,7 +80,7 @@ dbConnection.on('open', () => {
         startDate : Date,
         endDate : Date
     }, {Strict: false});
-    mongoose.Collections.studentsSchools = mongoose.model('studentSchool', studentSchoolSchema)*/
+    mongoose.Collections.studentsSchools = mongoose.model('studentSchool', studentSchoolSchema)
 
 
 });
